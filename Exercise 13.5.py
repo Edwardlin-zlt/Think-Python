@@ -6,10 +6,7 @@ lst: list
 def histogram(lst):
     d = dict()
     for element in lst:
-        if element not in d:
-            d[element] = 1
-        else:
-            d[element] += 1
+        d[element] = d.get(element,0) +1
     return d
 
 def choose_from_hist(hist):

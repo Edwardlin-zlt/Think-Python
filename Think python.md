@@ -400,3 +400,28 @@ The `random` module provides functions that generate pseudorandom numbers.
 	>>> random.choice(t)
 	3
 
+## 13.3 Word histogram ##
+
+str.replace(old, new[, count])
+>Return a copy of the string with all occurrences of substring old replaced by new. If the optional argument count is given, only the first count occurrences are replaced.
+
+get(key[, default])
+>Return the value for key if key is in the dictionary, else default. If default is not given, it defaults to None, so that this method never raises a KeyError.
+
+Question:
+`word = word.strip(string.punctuation + string.whitespace)`
+
+## 13.4 Most common words ##
+
+## 13.5 Optional parameters ##
+
+## 13.6 Dictionary subtraction ##
+`subtract` takes dictionaries `d1` and `d2` and returns a new dictionary that contains alla the keys form `d1` that are not in `d2`.
+
+	>>> def subtract(d1,d2):
+	>>>     res = dict()
+	>>>     for key in d1:
+	>>>         if key not in d2:
+	>>>             res[key] = None
+	>>>     return res
+
