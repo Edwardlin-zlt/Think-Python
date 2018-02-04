@@ -425,3 +425,17 @@ Question:
 	>>>             res[key] = None
 	>>>     return res
 
+## 14.4 Filenames and paths
+
+The `os` module provides functions for working with files and directories ('os' stands for 'operating system')
+`os.getcwd` returns the name of the current directory ('cwd' stands for 'current working directory).
+
+A relative path starts from the current directory, and an absolute path starts from the topmost directory in the file system
+
+To find the absolute path to a file, you can use `os.path.abspath('filename')`
+
+`os.path.exists` checks whether a file or directory exists.
+
+`os.path.isdir` checks whether it's a directory.
+
+`os.path.isfile` checks whether it's a file.
