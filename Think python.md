@@ -425,3 +425,8 @@ Question:
 	>>>             res[key] = None
 	>>>     return res
 
+## 13.7 Random words ##
+
+The expression `[word] * freq` creates a list with freq copies of string word. The `extend` method is similar to `append` except that the argument is a sequence.
+
+## 13.8 Markov analysis 
