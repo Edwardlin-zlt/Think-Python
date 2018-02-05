@@ -425,6 +425,16 @@ Question:
 	>>>             res[key] = None
 	>>>     return res
 
+## 14.3 Format operator
+
+The argument of `write` has to be a string, so if we want to put other values in a file, we have to convert them to strings.
+
+    >>> x = 52
+    >>> f.write(str(x))
+
+The alternative is to use **format operator**, `%`. When applied to integers, `%` is the modulus operator.
+But when the first operand is a string, `%` is the format operator.
+
 ## 14.4 Filenames and paths
 
 The `os` module provides functions for working with files and directories ('os' stands for 'operating system')
@@ -445,6 +455,15 @@ To find the absolute path to a file, you can use `os.path.abspath('filename')`
 `os.chdir` changes the working directory to the path you named it.
 
 `os.path.join` takes a directory and a file name and join them into a complete path. 
+
+There is another `join`:
+
+Syntax:  'sep'.join(seq)
+
+sep：separator
+seq：the sequence that need to be connected. The sequence could be a list, dictionary or tuple
+
+Return：A string that was constructed by the elements in the sequence and separator between each elements.
 
 ## 14.5 Catching exceptions
 
@@ -468,3 +487,99 @@ Python starts by executing the `try` clause. If all goes well, it skips the `exc
 If an exception occurs, it jumps out the `try` clause and executes the `except` clause.
 
 Handling an exception with a try statement is called **catching** a exception.
+
+## 14.6 Databases
+
+The module `anydbm` provides an interface for creating and updating database files.
+
+    >>> import anydbm
+    >>> db = anydbm.open('captions.db', 'c')
+   
+The mode 'c' means that the database should be created if it doesn't already exist.
+The result is a database object that can be used (for most operations) like a dictionary. 
+If you create a new item, `anydbm` updates the database file.
+
+    >>> db['cleese.png'] = 'Photo of John Cleese.'
+    
+When you access one of the items, `anydbm` reads the file.
+
+If you make another assignment to an existing key, `anydbm` replaces the old value\
+
+    >>> db['cleese.png'] = 'Photo of John Cleese doing a silly walk.'
+    >>> print db['cleese.png']
+    Photo of John Cleese doing a silly walk.
+    
+Many dictionary methods, like keys and items, also work with database objects.
+So does iteration with a `for` statwment.
+    
+    >>> for key in db:
+    >>>     print key
+    
+As with other files, you should close the database when you are done
+    
+    >>> db.close()
+    
+## Pickling
+
+A limitation of `anydbm` is that the keys and values have to be strings. If you try to use any other type, you get an error.
+
+`pickle.dumps` takes an object as a parameter and returns a string representation (dumps is short for 'dump string')
+
+    >>> import pickle
+    >>> t = [1, 2, 3]
+    >>> pickle.dumps(t)
+    '(lp0\nI1\naI2\naI3\na.'
+    
+`pickle.loads("load string")` reconstitutes the object
+    
+    >>> t1 = [1, 2, 3]
+    >>> s = pickle.dumps(t1)
+    >>> t2 = pickle.load(s)
+    >>> print t2
+    [1, 2, 3]
+ 
+ Although the new object has the same value as the old, it is not (in general) the same object:
+ 
+    >>> t1 = t2
+    True
+    >>> t1 is t2
+    False
+    
+ In fact, this combination is so common that it has been encapsulated in a module called `shelve`
+ 
+ ## 14.8 Pipes
+ 
+ ## 14.9 Writing modules
+ 
+ Programs that will be imported as a module often use the following idiom:
+    
+    If __name__ == '__main__':
+        print 'something'
+  
+ `__name__` is a built-in variable that is set when the program starts.
+ If the program is running as a script, `__name__` have the value `__main__`; in that case, the test code is executed.
+ Otherwise, if the module is imported, the test code is skipped.
+ 
+ ## 14.10 Debugging
+ 
+ Escape Character 
+ > \t tab
+ > \n newline
+ 
+ When you are reading and writing files, you might run into problems with whitespace. 
+ These errors can be hard to debug because spaces, tabs and newlines are normally invisible.
+ The built-in function `repr` can help.it takes any object as an argument and returns a string representation of the object.
+ 
+ ## 14.11 Glossary
+ 
+ - **persistent:** Pertaining to a program that runs indefinitely and keeps at least some of its data in permanent storage.
+ - **format operator:** An operator, `%`, that takes a format string and a tuple and generates a string that includes the elements of the tuple formatted as specified by the format string.
+ - **format string:** A string, used with the format operator, that contains format sequences.
+ - **format sequence:** A sequence of characters in a format string, like %d, that specifies how a value should be formatted.
+ - **text file:** A sequence of characters stored in permanent storage like a hard drive.
+ - **directory:** A named collection of files, also called a folder.
+ - **path:** A string that identifies a file.
+ - **relative path:** A path that starts from the current directory.
+ - **absolute path:** A path that starts from the topmost directory in the file system.
+ - **catch:** To prevent an exception from terminating a program using the `try` and `except` statements.
+ - **database:** A file whose contents are organized like a dictionay with keys that correspond to values.
