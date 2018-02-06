@@ -425,8 +425,54 @@ Question:
 	>>>             res[key] = None
 	>>>     return res
 
+<<<<<<< HEAD
 ## 13.7 Random words ##
 
 The expression `[word] * freq` creates a list with freq copies of string word. The `extend` method is similar to `append` except that the argument is a sequence.
 
 ## 13.8 Markov analysis 
+=======
+## 14.4 Filenames and paths
+
+The `os` module provides functions for working with files and directories ('os' stands for 'operating system')
+`os.getcwd` returns the name of the current directory ('cwd' stands for 'current working directory).
+
+A relative path starts from the current directory, and an absolute path starts from the topmost directory in the file system
+
+To find the absolute path to a file, you can use `os.path.abspath('filename')`
+
+`os.path.exists` checks whether a file or directory exists.
+
+`os.path.isdir` checks whether it's a directory.
+
+`os.path.isfile` checks whether it's a file.
+
+`os.listdir` returns a list of files (and other directories) in the given directory.
+
+`os.chdir` changes the working directory to the path you named it.
+
+`os.path.join` takes a directory and a file name and join them into a complete path. 
+
+## 14.5 Catching exceptions
+
+If you try to open a file that doesn't exist, you get an IOError.
+
+If you don't have permission to access a file, you get a IOError.
+
+IF you try to open a directory for reading, IOError.
+
+The `try` statement's syntax is similar to an `if` statement.
+
+    try:
+        fin = open('bad_file')
+        for line in fin:
+            print line
+        fin.close()
+    except:
+        print 'Something went wrong'
+       
+Python starts by executing the `try` clause. If all goes well, it skips the `except` clause and proceeds.
+If an exception occurs, it jumps out the `try` clause and executes the `except` clause.
+
+Handling an exception with a try statement is called **catching** a exception.
+>>>>>>> parent of 0106e4b... till Chapter 15
