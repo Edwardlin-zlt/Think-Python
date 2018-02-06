@@ -451,6 +451,7 @@ To find the absolute path to a file, you can use `os.path.abspath('filename')`
 
 `os.path.isdir` checks whether it's a directory.
 
+<<<<<<< HEAD
 `os.path.isfile` checks whether it's a file.
 
 `os.listdir` returns a list of files (and other directories) in the given directory.
@@ -488,3 +489,6 @@ Handling an exception with a try statement is called **catching** a exception.
 >>>>>>> parent of 0106e4b... till Chapter 15
 =======
 >>>>>>> parent of 0106e4b... till Chapter 15
+=======
+`os.path.isfile` checks whether it's a file.
+>>>>>>> parent of 699afd4... till 14.5
