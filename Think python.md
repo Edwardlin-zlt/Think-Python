@@ -587,5 +587,107 @@ A limitation of `anydbm` is that the keys and values have to be strings. If you 
  - **catch:** To prevent an exception from terminating a program using the `try` and `except` statements.
  - **database:** A file whose contents are organized like a dictionary with keys that correspond to values.
  
- ## Classes and objects
+ # 15 Classes and objects
  
+## 15.1 User defined types
+
+A class definition looks like this:
+
+    Class Point(object):
+        """Represents a point in 2-D space"""
+        
+## 15.2 Attribution
+
+You can assign to an instance using dot notation
+    
+    >>> blank,x = 3
+    >>> blank.y = 4
+
+You can use dot notation as part of any expression:
+
+    >>> print '(%g, %g)' % (blank.x, blank.y)
+    (3.0, 4.0)
+
+You can pass an instance as an argument in the usual way.
+
+    >>> def print_point(p):
+    >>>     print '(%g, %g) % p.x, p.y
+    
+## 15.3 Rectangles
+
+    class Rectangle(object):
+        """
+        Represents a rectangle.
+        
+        attributes: width, height, corner.
+        """
+        
+To represent a rectangle, you have to instantiate a Rectangle object and assign values to the attributes:
+
+    box = Rectangle()
+    box.with = 100.0
+    box.height = 200.0
+    box.cornor = Point()
+    box.cornor.x = 0.0
+    box.cornor.y = 0.0
+    
+An object that is an attribute of another object is **embedded**.
+
+## 15.4 Instances as return values
+
+    def find_center(rect):
+        p = Point()
+        p.x =rect.cornor.x +rect.width/2.0
+        p.y = rect.cornor.y + rect.height/2.0
+    return p
+    
+## 15.5 Objects are mutable
+
+## 15.6 Copying
+
+Copying an object is often an alternative to aliasing.
+The `copy` module contains a function called `copy` that can duplicate any object
+
+    >>> p1 = Point()
+    >>> p1.x = 3.0
+    >>> p1.y = 4.0
+    
+    >>> import copy
+    >>> p2 = copy.copy(p1)
+
+`p1` and `p2` contain the same data, but they are not the same point.
+
+    >>> p1 is p2
+    >>> False
+    >>> p1 == p2
+    >>> False
+
+The `is` operator indicates that `p1` and `p2` are not the same object, which is what we expect.
+But you might have expected `==` to yield `True` because these points have the same data.
+In that case, you will be disappointed to learn that for instances, the default behavior of the `==` operator is the same as the `is` operator.
+It checks objects identity, not object equivalence.
+
+IF you use `copy.copy` to duplicate a Rectangle,you will find that it copies the Rectangle but not the embedded Point.
+
+    >>> box2 = copy.copy(box)
+    >>> box2 is box
+    False
+    >>> box2.corner is box.corner
+    True
+
+This operation is called **shallow copy** because it copy the object and any references it contains, but not the embedded objects.
+
+Fortunately, the `copy` module contains a method named `deepcopy` that copies not only the object but also the object it refer to.
+
+## 15.7 Debugging
+
+If you try to access an attribute that doesn't exist, you get an `AttributeError`
+
+If you are not sure whether an object has a particular attribute, you can use the built-in function `hasattr`:
+
+    >>> hasattr(p, 'x')
+    True
+    >>> hasattr(p, 'z')
+    False
+
+The first argument can be any object; the second argument is a `string` that contains the name of a attribute.
