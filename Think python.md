@@ -691,3 +691,14 @@ If you are not sure whether an object has a particular attribute, you can use th
     False
 
 The first argument can be any object; the second argument is a `string` that contains the name of a attribute.
+
+## 15.8 Glossary
+
+- **class:** A user-defined type. A class definition create a new class object.
+- **class object:** An object that contains information about a user defined type. The class object can be used to create the instances of this type.
+- **instance:** An object that belongs to a class.
+- **attribution:** One of the named values associated with an object.
+- **embedded (object):** An object that is stored as a attribute of another object.
+- **shallow copy:** To copy the contents of an object, including any references to embedded objects;implemented by the copy function in the `copy` module.
+- **deep copy:** To copy the contents of an object as well as any embedded objects, and any objects embeded in them, and so on.implemented by the `deepcopy` function in the copy module.
+- **object diagram:** A diagram that shows objects, their attributes, and the value of the attributes. 
