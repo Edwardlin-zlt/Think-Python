@@ -426,12 +426,15 @@ Question:
 	>>>     return res
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## 13.7 Random words ##
 
 The expression `[word] * freq` creates a list with freq copies of string word. The `extend` method is similar to `append` except that the argument is a sequence.
 
 ## 13.8 Markov analysis 
 =======
+=======
+>>>>>>> parent of 0106e4b... till Chapter 15
 ## 14.4 Filenames and paths
 
 The `os` module provides functions for working with files and directories ('os' stands for 'operating system')
@@ -475,4 +478,7 @@ Python starts by executing the `try` clause. If all goes well, it skips the `exc
 If an exception occurs, it jumps out the `try` clause and executes the `except` clause.
 
 Handling an exception with a try statement is called **catching** a exception.
+<<<<<<< HEAD
+>>>>>>> parent of 0106e4b... till Chapter 15
+=======
 >>>>>>> parent of 0106e4b... till Chapter 15
