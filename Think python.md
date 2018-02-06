@@ -400,3 +400,64 @@ The `random` module provides functions that generate pseudorandom numbers.
 	>>> random.choice(t)
 	3
 
+# 14 Files
+
+## 14.1 Persistence
+
+## 14.2 Reading and writing
+
+To write a file, you have to open it with mode `w` as a second parameter
+
+    >>> fout = open('output.txt', 'w')
+    >>> print fout
+    open file ' output.txt', mode 'w' at 0xb7eb2410>
+   
+If the file already exists, opening it in write mode clears out the old data and starts fresh, so be careful!
+If the file doesn't exist, a new one is created.
+
+The `write` method puts data into the file.
+
+    >>> line1 = 'the emblem of our land.\n'
+    >>> fout.write(line1)
+
+Again the file object keeps tract of where it is, so if you call `write` again, it adds the new data to the end.
+
+When you are done writing, you have to close the file.
+    fout.close()
+    
+## 14.3 Format operator
+
+The argument of `write` has to be a string, so if we want wo put other values in a file, we have to convert them to a string
+    >>> x = 52
+    >>> f.write(str(x))
+
+An alternative is to use the ** format operator, `%`.
+When applied to integers, `%` is the modulus operator.
+But when the first operand is a string, `%` is the format operator.
+
+The first operand is the format string, which contains one or more format sequences, which specify how the second operand is formatted.
+The result is a string.
+
+The format sequence `%d` means that the second operand should be formatted as an integer(d stands for 'decimal')
+
+    >>> camels = 42
+    >>> '%d' % camels
+    '42'
+   
+A format sequence can appear everywhere in the string, so you can embed a value in a sentence:
+    >>> camels = 42
+    >>> 'I have spotted %d camels.' % camels
+    'I have spotted 42 camels'
+    
+If there is more than one format sequence in the string, the second argument has to be a tuple.
+Each format sequence is matched with an element of the tuple, in order.
+
+`%d` to format an integer
+`%g` to format a floating-point number
+`%s` to format a string
+
+The number of elements in the tuple has to match the number of format sequences in the string.
+Also, the type of elements have to match the format sequences.
+
+    >>> 'In %d years I have spotted %g %s' % (3,0.1,'camels')
+    'In 3 years I have spotted 0.1 camels'
