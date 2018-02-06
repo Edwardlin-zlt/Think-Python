@@ -566,6 +566,7 @@ A limitation of `anydbm` is that the keys and values have to be strings. If you 
  
  Escape Character 
  > \t tab
+ 
  > \n newline
  
  When you are reading and writing files, you might run into problems with whitespace. 
@@ -584,4 +585,7 @@ A limitation of `anydbm` is that the keys and values have to be strings. If you 
  - **relative path:** A path that starts from the current directory.
  - **absolute path:** A path that starts from the topmost directory in the file system.
  - **catch:** To prevent an exception from terminating a program using the `try` and `except` statements.
- - **database:** A file whose contents are organized like a dictionay with keys that correspond to values.
+ - **database:** A file whose contents are organized like a dictionary with keys that correspond to values.
+ 
+ ## Classes and objects
+ 
