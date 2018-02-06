@@ -427,12 +427,15 @@ Question:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## 13.7 Random words ##
 
 The expression `[word] * freq` creates a list with freq copies of string word. The `extend` method is similar to `append` except that the argument is a sequence.
 
 ## 13.8 Markov analysis 
 =======
+=======
+>>>>>>> parent of 0106e4b... till Chapter 15
 =======
 >>>>>>> parent of 0106e4b... till Chapter 15
 ## 14.4 Filenames and paths
@@ -479,6 +482,9 @@ If an exception occurs, it jumps out the `try` clause and executes the `except` 
 
 Handling an exception with a try statement is called **catching** a exception.
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 0106e4b... till Chapter 15
+=======
 >>>>>>> parent of 0106e4b... till Chapter 15
 =======
 >>>>>>> parent of 0106e4b... till Chapter 15
