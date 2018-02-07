@@ -702,3 +702,118 @@ The first argument can be any object; the second argument is a `string` that con
 - **shallow copy:** To copy the contents of an object, including any references to embedded objects;implemented by the copy function in the `copy` module.
 - **deep copy:** To copy the contents of an object as well as any embedded objects, and any objects embeded in them, and so on.implemented by the `deepcopy` function in the copy module.
 - **object diagram:** A diagram that shows objects, their attributes, and the value of the attributes. 
+
+# 16 Classes and functions
+
+## 16.1 Time
+
+`%`, string formatting:
+
+syntax: %[(name)][flag][width].[precision]typecode
+
+## 16.2 Pure functions
+
+A development plan called prototype and patch. > pure function > improved version
+
+## 16.3 Modifiers
+
+Sometimes it is useful for a function to modify the object it get as a parameters. In that case, the changes are visible to the caller. Functions that works in this way are called modifier.
+
+## 16.4 Prototyping versus planning
+
+## Debugging
+
+Using an `assert` statement, which checks a given invariant and raises an exception if it fails.
+    
+    def add_time(t1, t2):
+        assert valid_time(t1) and valid_time(t2)
+        second = time_to_int(t1) + time_to_int(t2)
+        return int_to_time(seconds)
+
+## 16.6 Glossary
+
+- **prototype and patch:** A development plan that involves writing a rough draft of a program, testing, and correcting errors as they are found.
+- **planned development:** A development plan that involves high-level insight into the problem and more planning than incremental development or prototype development.
+- **pure function:** A function that does not modify any of the objects that it receives as arguments. Most modifiers are fruitless.
+- **functional programming style:** A style of program design in which the majority of functions are pure.
+_ **invariant:** A condition that should always be true during the execution of a program.
+
+# 17 Classes and methods
+
+## 17.1 Object-oriented features
+
+In the `Time` program, there is no obvious connection between the class definition and the function definitions that follow.
+With some examination, It is apparent that every functions takes at least one `time` object as an argument.
+This observation is the motivation for `methods`.
+A `method` is a function that is associated with a particular class.
+
+Methods are semantically the same as functions; but there are two syntactic differences:
+
+- Methods are defined inside a class definition in order to make the relationship between the class and the method explicit.
+- The syntax for invoking a method is different from the syntax for calling a function.
+
+## 17.2 Print object
+
+    Class Time(object):
+        
+        def print_time(time):
+            print '%.2d:%.2d:%.2d' % (time.hour, time.minute, time.second)
+Now there are two ways to call print_time.
+
+The First (and less common) way is to use function syntax:
+
+    >>> Time.print_time(start)
+    09:45:00
+
+In this use of dot notation, Time is the name of the class, and print_time is the name of the method. `start` is passed as a parameter.
+
+THe second (and more concise) way is to use method syntax:
+
+    >>>start.print_time()
+    09:45:00
+    
+In this use of dot notation, print_time is the name of the method (again), and start is the object the method is invoked on, which is called the subject.
+
+Inside the method, the subject is assigned to the first parameter, so in this case `start` is assigned to `time`.
+
+By convention, the first parameter of a method is called `self`, so it would be more common to write `print_time` like this:
+    
+    class Time(object):
+        def print_time(self):
+            print '%.2d:%.2d:%.2d' % (time.hour, time.minute, time.second)
+            
+The reason for this convention is an implicit metaphor:
+
+- The syntax for a function call, `print_time(start)`, suggests that the function is the active agent. It says something like, "Hey print_time! Here's an object for you to print."
+- In object-oriented programming, the objects are the active agents. A method invocation like `start.print_time()` says, "Hey start! Please print yourself"
+
+## 17.3 Another example
+
+Here's a version of increment rewritten as a method:
+    
+    # inside class Time:
+        def increment(self, seconds)
+            seconds += self.time_to_int()
+            return int_to_time(seconds)
+            
+Here's how you would invoke increment:
+    
+    >>> start.print_time()
+    09:45:00
+    >>> end = start.increment(1337)
+    >>> end.print_time()
+    10:07:17
+    
+The subject, `start`, gers assigned to the first parameter, `self`. The argument, `1337`, gets assigned to the second parameter, `seconds`.
+
+This mechanism can be confusin, especially if you make an error. For example, if you invoke `increment` with two arguments, you get:
+
+    >>> end = start.increment(117,249)
+    TypeError: increment() takes exactly 2 arguments (3 given)
+    
+The error message is initially confusin, because there are only two arguments in parentheses. But the subject is also considered an argument, so all together that's three.
+
+## 17.4 A more complicated example
+
+## 17.5 The init method 
+
