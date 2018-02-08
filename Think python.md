@@ -946,4 +946,4 @@ For objects, that means that the methods a class provides should not depend on h
 - **operator overloading:** Changing the behavior of an operator like + so it works with a user-defined type.
 - **type-based dispatch:** A programming pattern that checks the type of an operand and invokes different functions for different types.
 - **polymorphic:** Pertaining to a function that can work with more than one type.
-_ **imformation hiding:** The principle that he interface provided by an object should not depend on its implementation, in particular the representation of its attributes.
+_ **imformation hiding:** The principle that he interface provided by an object should not depend on its implementation, in particular the representation of its attributes..
