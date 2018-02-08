@@ -817,3 +817,133 @@ The error message is initially confusin, because there are only two arguments in
 
 ## 17.5 The init method 
 
+The `__init__` method (short for initalization) is a special method that gets invoked when an object is instantiated.
+
+    #inside class Time
+        
+        def __init__(self, hour=0, minute=0, second=0):
+            self.hour = hour
+            self.mimute = minute
+            self.second = second
+
+It is common for the parameters of `__init__` to have the same names as the attributes.
+
+The parameters are optional, so if you call Time with no arguments, you get the default values.
+
+    >>> time = Time()
+    >>> time.print_time()
+    00:00:00
+
+If you provide two argument, it overrides hour and minute:
+
+    >>> time = Time(9, 45)
+    >>> time.print_time()
+    09:45:00
+    
+## 17.6 The `__str__` method
+
+`__str__` is a special method, like `__init__` , that is supposed to return a string representation of an object.
+
+For example, here is a `__str__` method for Time objects:
+    
+    inside class Time:
+        def __str__(self):
+            return '%.2d:%.2d:%.2d' %(self.hour, self.minute, self.second)
+
+when you print an object, Python invokes the `str` method
+
+    >>> time = Time(9, 45)
+    >>> print time
+    09:45:00
+    
+When you write a new class, you should always start by writing `__init__`, which makes it easier to instantiate objects, and `__str__`, which is useful for debugging.
+
+
+## 17.7 Operator overloading
+
+By defining other special methods, you can specify the behavior of operators on user-defined types.
+For example, if you define a method named `__add__` for the Time class, you can use the + operator on Time objects.
+
+    # inside class Time:
+        def __add__(self, other):
+            seconds = self.time_to_int() +other.time_to_int()
+            return int_to_time(seconds)
+            
+Here is how you use it:
+    >>> start = Time(9, 45)
+    >>> duration = Time(1, 35)
+    >>> print start + duration
+    11;20:00
+    
+## 17.8 Type-based dispatch
+
+In the previous section we added two Time objects, but you also might want to add an integer to a Time object.
+The following is a version of `__add__` that checks the type of `other` and invokes either add_time or increment.
+    
+    # inside class Time:
+    
+        def __add__(self,other):
+            if isinstance(other, Time):
+                return self.add_time(other)
+            else:
+                return self.increment(other)
+
+The built-in function `isinstance` takes a value and a class object, and returns True if the value is an instance of the class.
+
+Unfortunately, this implementation of addition is not commutative. If the integer is the first operand, you get:
+    
+    >>> print 137 + start
+    TypeError: unsupported operand type(s) for +: `int` and `instance`
+    
+But there is a clever solution for this problem: the special method `__radd__`, which stands for "right-side add." 
+This method is invoked when a Time object appears on the right side of the + operator.
+
+    # inside class Time:
+        def __radd__(self, other):
+            return self.__add__(other)
+            
+## 17.9 Polymorphism
+
+Functions that can work with several types are called **polymorphic**. Polymorphism can facilitate code reuse.
+For example, the built-in function `sum`, which adds the elements of a sequence, works as long as the elements of the sequence support addition.
+
+Since Time objects provide an `add` method, they work with `sum`:
+    
+    >>> t1 = Time(7, 43)
+    >>> t2 = Time(7, 41)
+    >>> t3 = Time(7, 37)
+    >>> total = sum([t1, t2, t3])
+    >>> print total
+    23:01:00
+
+## 17.10 Debugging
+
+If you are not sure whether an object has a particular attribute, you can use the built-in function `hasattr`.
+
+Another way to access the attributes of an object is through the special attribute `__dict__`, which is a dictionary that maps attribute names (as strings) and values:
+    
+    >>> p = Point(3, 4)
+    >>> print p.__dict__
+    
+For purpose of debugging, you might find it useful to keep this function handy.
+
+    def print_attributes(obj):
+        for attr in obj.__dict__:
+            print attr, getattr(obj, attr)
+
+The built-in function `getattr` takes an object and an attribute name (as string) and returns the attribute's value.
+
+## Interface and implementation (Hard to understand)
+
+A design principle that helps achieve that goal is to keep interfaces separate from implementations.
+For objects, that means that the methods a class provides should not depend on how the attributes are represented.
+
+## 17.12 Glossary
+
+- **object-oriented language:** A language that provides features, such as user-defined classes and method syntax, that facilitate object-oriented programming.
+- **object-oriented programming:** A style of programming in which data and the operations that manipulate it are organized into classes and methods.
+- **subject:** The object a method is invoked on.
+- **operator overloading:** Changing the behavior of an operator like + so it works with a user-defined type.
+- **type-based dispatch:** A programming pattern that checks the type of an operand and invokes different functions for different types.
+- **polymorphic:** Pertaining to a function that can work with more than one type.
+_ **imformation hiding:** The principle that he interface provided by an object should not depend on its implementation, in particular the representation of its attributes.
