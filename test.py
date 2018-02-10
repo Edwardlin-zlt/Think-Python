@@ -1,30 +1,14 @@
-class Time(object):
-    """Represents the time of day.
-    attributes: hours, minute, second.
-    """
+from swampy.Gui import *
 
-def increment(time,second):
-    time.second += second
+g = Gui()
+g.title("")
 
-    if time.second >= 60:
-        time.second -= 60
-        time.minute += 1
+def callback1():
+    g.bu(text='Now press me', command=callback2)
 
-    if time.minute >= 60:
-        time.minute -= 60
-        time.hour += 1
-    return time
+def callback2():
+    g.la(text='Thanks')
 
-def print_time(time):
-    print time.hour
-    print time.second
-    print time.minute
-    print "%.2d : %.2d : %.2d" % (time.hour, time.minute, time.second)
+g.bu(text='Press me', command=callback1)
 
-if __name__ == '__main__':
-    t1 = Time()
-    t1.hour = 14
-    t1.minute = 55
-    t1.second = 7
-
-    print_time(increment(t1, 55))
+g.mainloop()

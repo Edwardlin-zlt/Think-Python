@@ -947,3 +947,244 @@ For objects, that means that the methods a class provides should not depend on h
 - **type-based dispatch:** A programming pattern that checks the type of an operand and invokes different functions for different types.
 - **polymorphic:** Pertaining to a function that can work with more than one type.
 _ **imformation hiding:** The principle that he interface provided by an object should not depend on its implementation, in particular the representation of its attributes..
+
+# 18 Inheritance
+
+## 18.1 Card objects
+
+An alternative is to use integers to encode the ranks and suits.
+
+## 18.2 Class attributes
+
+    class Card(object):
+        """Represent a standard playing card"""
+        suit_names = ['Clubs', 'Diamond', 'Heart', 'Spades']
+        rank_names = [None, 'Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King']
+        
+        def __str__(self):
+            return '%s of %s' % (Card.rank_name[self.rank], Card.suit_name[self.suit])
+            
+Variables like `suit_names` and `rank_names`, which are defined inside a class but outside of any method, are called **class attributes** because they are associated with the class object Card.
+This term distinguishes them from variables like `suit` and `rank`, which are called **instance attributes** because they are associated with a particular instance.
+
+Both kinds of attribute are accessed using dot notation.
+
+Every card has its own `suit` and `rank`, but there is only one copy of `suit_names` and `rank_names`.
+
+By including `None` as a place-keeper, we get a mapping with the nice property that the index 2 maps to the string '2', and so on.
+
+Object diagram(P242)
+
+## 18.3 Comparing cards
+
+For user-defined types, we can override the behavior of the built-in operators(<, >, ==, etc.) by providing a method named `__cmp__`.
+
+`__cmp__` takes two parameters, `self` and `other`, and returns a positive number if the first object is greater, a negative number if the second object is greater, and 0 if they are equal to each other.
+
+    def __cmp__(self, other):
+        #check the suits
+        if self.suit > other.suit: 
+            return 1
+        if self.suit < other.suit: 
+            return -1
+        
+        #suits are the sam... check ranks
+        if self.rank > other.rank: 
+            return 1
+        if self.rank < other.rank: 
+            return -1
+        
+        #ranks are the same... it's a tie
+        return 0
+        
+The built-in function `cmp` has the same interface as the method `__cmp__`: it takes two values and returns a positive number if the first is larger, a negative number if the second is larger, and 0 if they are equal.
+
+## 18.4 Decks
+
+## 18.5 Printing the deck
+
+    def __str__(self):
+        res = []
+        for card in self.cards
+            res.append(str(card))
+        return '\n'.join(res)
+        
+This method demonstrates an efficient way to accumulate a large string: building a list of strings and then using `join`
+
+## 18.6 Add, remove, shuffle and sort
+
+To deal cards, we would like a method that removes a card from the deck and returns it. The list method `pop` provides a convenient way to do that:
+
+A method like this that uses another function without doing munch real work is sometimes called a veneer. The metaphor comes from woodworking, where it is common to glue a thin layer of good quality wood to the surface of a cheaper piece of wood. 
+ 
+## 18.7 Inheritance
+
+Inheritance is the ability to define a new class that is a modified version of an existing class.
+
+It is called "inheritance" because the new class inherits the methods of the existing class.
+Extending this metaphor, the existing class is called the **parent** and the new class is called the **child**.
+
+The definition of a child class is like other class definitions, But the name of the parent class appears in parentheses.
+
+    class Hand(Deck):
+        """represents a hand of playing cards."""
+        
+This definition indicates that Hand inherits from Deck; that means we can use methods like `pop_card` and `add_card` for Hands as well as Decks
+
+If we provide an `__init__`method in the Hand class, it overrides the one in the Deck class.
+
+## 18.8 Class diagrams
+
+There are several kinds of relationship between classes:
+
+- Objects in one class might contain references to objects in another calss. This kind of relationship is called **HAS-A**, as in, "a Rectangle has a Point".
+- One class might inherit from another. This relationship is called **IS-A**, as in, "a Hand is a kind of a Deck."
+- One class might depend on another in the sense that changes in one class would require changes in the other.
+
+A more detailed diagram might show that a Deck actually contains a list of Cards, but built-in type like list and dict are usually not included in class diagrams.
+
+## 18.9 Debugging
+
+As an alternative, you could use this function, which takes an object and a method name (as a string) and returns athe class that provides the definition of the method:
+
+    def find_defining_class(obj, meth_name):
+        for ty in type(obj).mro():
+            if meth_name in ty.__dict__:
+            return ty
+            
+`find_definning_class` uses the `mro` method to get the list of class objects (types) that will be searched for methods. "MOR" stands for "method resolution order."
+
+## 18.10 Data encapsulation （I have some trouble to understand this section)
+
+## 18.11 Glossary
+
+- **encode:** To represent one set of values using another set of values by constructing a mapping between them.
+- **class attribute:** An attribute associated with a class object. Class attributes are defined inside a class definition but outside any method.
+- **instance attribute:** An attribute associated with an instance of a class.
+- **veneer:** A method or function that provides a different interface to another function without doing much computation.
+- **inheritance:** The ability to define a new class that is a modified version of a previously defined class.
+- **parent class:** The class from which a child class inherits.
+- **child class:** A new class created by inheriting from an existing class; also called a "subclass."
+- **IS-A relationship:** The relationship between a child class and its parent class.
+- **HAS-A relationship:** The relationship between two classes where instances of one class contain references to instances of the other.
+- **class diagram:** A diagram that shows the classes in a program and the relationships between them.
+- **multiplicity:** A notation in a class diagram that shows, for a HAS-A relationship, how many references there are to instances fo another class.  
+
+## 19 Case study: Tkinter
+
+## 19.1 GUI
+
+GUIs stand for graphical user interfaces
+
+Widgets are the elements that make up a GUI; they include:
+
+- Button: A widget, containing text or an image, that performs an action when pressed.
+- Canvas: A region that can display lines, rectangles, circles and other shapes.
+- Entry: A region where users can type text.
+- Scrollbar: A widget that controls the visible part of another widget.
+- Frame: A container, often invisible, that contains other widgets.
+
+The empty gray square you see when you create a Gui is a Frame. When you create a new widget, it is added to this Frame.
+
+## 19.2 Buttons and callbacks
+
+The method `bu` creates a Button widget:
+    
+    button = g.bu(text='press me.')
+
+The return value from `bu` is a Button object..
+
+`bu` takes up ti 32 parameters that control the appearance and function of the button. These parameters are called **options**.
+
+The method `la` creates a Label widget:
+
+    label = g.la('text='Press the button.')
+    
+By default, Tkinter stacks the widgets top-to-bottom and centers them.
+
+The option that controls the behavior of a button is `command`. 
+The value of `command` is a function that gets executed when the button is pressed.For example:
+
+This kind of flow is characteristic of **event-driven programming**.
+User actions, like button presses and key strokes, are called events. Tn event-driven programming, the flow of execution is determined by user actions rather than by the programmer.
+
+## 19.3 Canvas widgets
+
+The method `ca` creates a new Canvas:
+    
+    canvas = g.ca(width=500, height=500)
+    
+`width` and `height` are the dimensions of the canvas in pixels.
+
+After you create a widget, you can still change the values of options with the `config` method.
+For example, the `bg` option changes the background color.
+
+    canvas.config(bg='black')
+    
+Shapes on a Canvas are called `items`.For example, the Canvas method `circle` draws a circle:
+
+    item = canvas.circle([0, 0], 100, fill='red')
+
+## 19.4 Coordinate sequences
+
+The rectangle method takes a sequence of coordinates that specify opposite corners of the rectangle.
+    
+    canvas.rectangle([[0, 0], [200, 100]],
+                 fill='blue', outline='orange', width=10)
+
+This way of specifying corners is called a bounding box.
+
+`oval` takes a bounding box and draws an oval within the specified `rectangle`.
+
+    canvas.oval([[0, 0], [200, 200]], outline='orange', width=10)
+    
+`line` takes a sequence of coordinates and draws a line that connects the points.      
+
+    canvas.line([[0, 100], [100, 200], [200, 100]], fill='white', width=10)
+
+`polygon` takes the same arguments, but it draws the last leg of the polygon, and fills it in:                 
+    
+    canvas.polygon([[0, 100], [100, 200], [200, 100]],
+                   fill='red', outline='orange', width=10)                                                                                                                
+
+## 19.5 More widgets
+
+Tkinter provides two widgets that let users type text: an `Entry`, which is a single line, and a `Text` widget, which has multiple lines.
+
+`en` creates a new Entry:                 
+    
+    entry = g.en(text='Default text')
+   
+The `get` method returns the contents of the Entry(which may have been changed by users):
+
+    >>> entry.get()
+    'Default text'
+    
+`te` creates a Text widget:
+
+    text = g.te(width=100, height=5)
+
+`insert` puts text into the Text widget:
+
+    text.insert(END, 'A line of text')
+   
+`END` is a special index that indicates the last character in the Text widget.
+
+You can also specify a character using a dotted index, like 1.1, which has the line number before the dot and the column number after.
+
+Th following example adds the letters 'nother' after the first character of the first line.
+
+    >>> text.insert(1.1, 'nother')
+
+The `get` method reads the text in the widget; it takes a start and end index as arguments.
+
+The following example returns all the text in the widget, including the newline character.
+
+    >>> text.insert(0.0, END)
+    'Another line of text.\n'
+
+The `delete` method removes text from the widget; the following example deletes all but the first two characters:
+
+    >>> text.delete(1.2, END)
+    >>> text.get(0.0, END)
+    'An\n'

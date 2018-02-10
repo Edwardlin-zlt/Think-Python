@@ -23,6 +23,11 @@ class Time(object):
     def __str__(self):
         return '%.2d:%.2d:%.2d' % (self.hour, self.minute, self.second)
 
+    def __cmp__(self, other):
+        t1 = self.hour, self.minute, self.second
+        t2 = other.hour, other.minute, other.second
+        return cmp(t1,t2)
+
     def print_time(self):
         print str(self)
 
