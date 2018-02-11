@@ -1188,3 +1188,72 @@ The `delete` method removes text from the widget; the following example deletes 
     >>> text.delete(1.2, END)
     >>> text.get(0.0, END)
     'An\n'
+    
+## Packing widgets
+
+At the top level, this GUI contains two widgets--a Canvas and a Frame--arranged in a row.
+So the first strp is to create the row.
+
+    class SimpleTurtleWorld(TurtleWorld):
+        def setup(self):
+            self.row()
+            ...
+
+`setup` is the function that creates and arranges the widgets.
+Arranging widgets in a GUI is called **packing**
+`row` creates a row Frame and makes it the "current Fram.".Until this Frame is closed or anther Frame is created, all subsequent widgets are packed in a row.
+
+Here is the code that creates the Canvas and the column Frame that hold the other widgets.
+    
+    self.canvas = self.ca(width=400, height=400, bg='white')
+    self.col()
+
+The first widget in the column is a frid Frame, which contains four buttons arranged two-by-two:
+    
+    self.gr(cols=2)
+    self.bu(text='Print canvas', command=self.canvas.dump)
+    self.bu(text='Quit', command=self.quit)
+    self.bu(text='Make Turtle', command=self.make_turtle)
+    self.bu(text='Clear', command=self.clear)
+    self.endgr()
+
+`gr` create the grid; the argument is the number of columns.
+Widgets in the grid are laid out left-to-right, top-to-bottom.
+
+The first button uses `self.canvas.dump` as a callback; the second uses `self.quit`. These are bound methods, which means they are associated with a particular object.
+When they are invoked, they are invoked on the object.
+
+The next widget in the column is a row Frame that contains a Button and an Entry.
+    
+    delf.row([0, 1], pady=30)
+    self.bu(text='Run file', command=self.run_file)
+    self.en_file = self.en(text='snowflake.py', width=5)
+    self.endrow()
+ 
+The first argument to `row` is a list of weights that determines how extra space is allocated between widget.
+The list [0,1] means that all extra space is allocated to the second widget, which is the Entry.If you run this code and resize the window, you will see that the Entry grows and the Button doesn't.
+The option `pady` "pads" this row in the *y* direction, adding 30pixels of space above and below.
+
+`endrow` ends this row of widgets, so subsequent widgets are packed in the column Frame.
+`Gui.py` keeps a stack of Frames:
+
+- When you use `row`, `col` or `gr` to create a Frame, it goes on top of the stack and becomes the current Frame.
+- When you use `endrow`, `endcol` or `endgr` to close a Frame, it gets popped off the stack and the previous Frame on the stack becomes the current Frame.,
+
+The method `run_file` reads the contents of the Entry, uses it as a filename, read the contents and passes ti to run_code.
+`self.inter`is an Interpreter object that knows how to take a string and execute it as Python code.
+
+## 19.7 Menus and Callables
+
+A Menubutton is a widget that looks like a button, but when pressed it pops up a menu.
+After the user selects an item, the menu disappears.
+
+    for color in colors:
+        g.mi(mb, text=color, command=Callable(set_color, color))
+        
+So far we have seen functions and bound methods used as callbacks, which works fine if you don't have to pass any arguments to the function.
+Otherwise you have to construct a Callable object that contains a function, like `set_color`, and its arguments, like `color`.
+
+## 19.8 Binding
+
+ 
